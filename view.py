@@ -36,9 +36,9 @@ class View(tk.Tk):
         self.main_frame = ttk.Frame(self)
         self.main_frame.pack(padx=self.PADDING, pady=self.PADDING)
     
-    # adds text box that displays the button you pressed; cannot type in it
+    # adds text box that displays the button input; disabled state - only use buttons
     def createEntry(self):
-        entry = ttk.Entry(self.main_frame, justify='right', textvariable=self.valueVar)
+        entry = ttk.Entry(self.main_frame, justify='right', textvariable=self.valueVar, state='disabled')
         entry.pack(fill='x')
 
     # instantiate buttons
@@ -54,14 +54,15 @@ class View(tk.Tk):
         buttonsInRows=0
 
         # dynamically create buttons
-        for i in self.buttonLabels:
+        for label in self.buttonLabels:
             # creates a new row if the max button amount is hit
             if buttonsInRows == self.MAXBUTTONROWS:
                 innerFrame = ttk.Frame(outerFrame)
                 innerFrame.pack()
                 buttonsInRows = 0
             
-            bt = ttk.Button(innerFrame, text=i)
+            bt = ttk.Button(innerFrame, text=label, command=(lambda button=label: 
+                                self.controller.ButtonClicked(button)))
             bt.pack(side = 'left')
             buttonsInRows += 1
 

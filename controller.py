@@ -9,6 +9,13 @@ class Controller:
         self.model = Model()
         self.view = View(self)
 
+    # controller for when button is clicked
+    def ButtonClicked(self, label):
+        calculation = self.model.calc(label)
+
+        # changes the equation displayed in the view
+        self.view.valueVar.set(calculation)
+
     def main (self):
         self.view.main()
 
